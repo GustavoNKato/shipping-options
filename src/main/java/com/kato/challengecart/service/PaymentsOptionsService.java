@@ -25,6 +25,7 @@ public class PaymentsOptionsService {
         return getPaymentOptions(paymentsMap, user);
     }
 
+    // test pr
     private Set<String> getCategoriesSet(ShoppingCart shoppingCart) {
         return shoppingCart.getItems().stream()
                 .map(item -> item.getProduct().getCategory())
