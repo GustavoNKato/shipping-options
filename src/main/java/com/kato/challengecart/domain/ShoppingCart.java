@@ -55,12 +55,18 @@ public class ShoppingCart {
 
     private BigDecimal applyFees(BigDecimal totalValue, int installments) {
         if (installments <= THREE_PAYMENTS) {
-            return totalValue.multiply(FEE_RATE_1.pow(installments)).divide(BigDecimal.valueOf(installments), SCALE, RoundingMode.HALF_UP);
+            return totalValue
+                    .multiply(FEE_RATE_1.pow(installments))
+                    .divide(BigDecimal.valueOf(installments), SCALE, RoundingMode.HALF_UP);
         }
         if (installments <= SIX_PAYMENTS) {
-            return totalValue.multiply(FEE_RATE_2.pow(installments)).divide(BigDecimal.valueOf(installments),SCALE, RoundingMode.HALF_UP);
+            return totalValue
+                    .multiply(FEE_RATE_2.pow(installments))
+                    .divide(BigDecimal.valueOf(installments),SCALE, RoundingMode.HALF_UP);
         }
-        return totalValue.multiply(FEE_RATE_3.pow(installments)).divide(BigDecimal.valueOf(installments), SCALE, RoundingMode.HALF_UP);
+        return totalValue
+                .multiply(FEE_RATE_3.pow(installments))
+                .divide(BigDecimal.valueOf(installments), SCALE, RoundingMode.HALF_UP);
     }
 
 

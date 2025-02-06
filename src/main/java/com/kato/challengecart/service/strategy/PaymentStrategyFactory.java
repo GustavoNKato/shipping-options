@@ -8,13 +8,16 @@ import org.springframework.stereotype.Component;
 @Component
 public class PaymentStrategyFactory {
     public PaymentStrategy getPaymentStrategy(ShoppingCart cart) {
-        if (cartContainsCategory(cart, CategoryEnum.HOME_APPLIANCE.name()) || cartContainsCategory(cart, CategoryEnum.MOBILE_PHONE.name())) {
-            return new HomeApplianceOrMobileStrategy();
-        } else if (cartContainsCategory(cart, CategoryEnum.ELECTRONIC.name())) {
-            return new ElectronicStrategy();
-        } else {
-            return new DefaultStrategy();
+        if (cartContainsCategory(cart, CategoryEnum.HOME_APPLIANCE.name())) {
+            return new HomeApplianceStrategy();
         }
+        if (cartContainsCategory(cart, CategoryEnum.MOBILE_PHONE.name())) {
+            return new MobilePhoneStrategy();
+        }
+        if (cartContainsCategory(cart, CategoryEnum.ELECTRONIC.name())) {
+            return new ElectronicStrategy();
+        }
+        return new DefaultStrategy();
     }
 
     private boolean cartContainsCategory(ShoppingCart cart, String category) {
