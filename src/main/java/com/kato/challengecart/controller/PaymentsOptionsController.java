@@ -4,7 +4,7 @@ import com.kato.challengecart.controller.request.CalculatePaymentOptionsDto;
 import com.kato.challengecart.controller.response.PaymentOptionsDto;
 import com.kato.challengecart.domain.ShoppingCart;
 import com.kato.challengecart.domain.User;
-import com.kato.challengecart.service.PaymentsOptionsService;
+import com.kato.challengecart.service.PaymentService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,21 +15,17 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/payments")
 public class PaymentsOptionsController {
 
-    private final PaymentsOptionsService paymentsOptionsService;
+    private final PaymentService paymentService;
 
-    public PaymentsOptionsController(PaymentsOptionsService paymentsOptionsService) {
-        this.paymentsOptionsService = paymentsOptionsService;
+    public PaymentsOptionsController(PaymentService paymentService) {
+        this.paymentService = paymentService;
     }
 
-    @PostMapping("/options/calculate")
+    @PostMapping("/options")
     public ResponseEntity<PaymentOptionsDto> calculatePaymentOptions(@RequestBody CalculatePaymentOptionsDto request) {
         User user = request.user().toDomain();
         ShoppingCart shoppingCart = request.shoppingCart().toDomain();
-
-        // talvez eu mude as services para ser a service pela categoria
-        // aqui eu implemento um simple facory para pegar a service correta
-
-        PaymentOptionsDto payments = paymentsOptionsService.calculatePaymentOptions(user, shoppingCart);
+        PaymentOptionsDto payments = paymentService.calculatePaymentOptions(user, shoppingCart);
         return ResponseEntity.ok().body(payments);
     }
 }
