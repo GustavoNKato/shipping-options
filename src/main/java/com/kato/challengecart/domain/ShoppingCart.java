@@ -28,13 +28,14 @@ public class ShoppingCart {
 
     private List<ShoppingCartItem> items;
 
-    public Map<Integer, BigDecimal> calculateOptions(int maxInstallments) {
+    public Map<Integer, BigDecimal> calculateOptions(int maxInstallments, User user) {
         var paymentOptionsMapper = new HashMap<Integer, BigDecimal>();
         var totalPrice = calculateTotalPrice();
         for (int installment = 1; installment <= maxInstallments; installment++) {
             var installmentValue = calculateInstallmentWithTax(totalPrice, installment);
             paymentOptionsMapper.put(installment, installmentValue);
         }
+        user.applySeniorDiscount(paymentOptionsMapper);
         return paymentOptionsMapper;
     }
 

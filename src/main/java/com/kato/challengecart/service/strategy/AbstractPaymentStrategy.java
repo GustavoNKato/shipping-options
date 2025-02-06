@@ -11,10 +11,8 @@ public abstract class AbstractPaymentStrategy implements PaymentStrategy {
     @Override
     public Map<Integer, BigDecimal> calculatePaymentOptions(User user, ShoppingCart cart) {
         int maxInstallments = getMaxInstallments(cart);
-        return cart.calculateOptions(maxInstallments);
+        return cart.calculateOptions(maxInstallments, user);
     }
 
     protected abstract int getMaxInstallments(ShoppingCart cart);
-
-
 }
